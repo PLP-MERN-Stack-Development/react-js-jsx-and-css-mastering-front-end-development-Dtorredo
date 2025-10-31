@@ -1,70 +1,72 @@
-# React.js and Tailwind CSS Assignment
+# PLP Task Manager – React, Vite, Tailwind
 
-This assignment focuses on building a responsive React application using JSX and Tailwind CSS, implementing component architecture, state management, hooks, and API integration.
+A small React application demonstrating component architecture, hooks, routing, API-style listing, dark mode, and Tailwind styling.
 
-## Assignment Overview
+## Features
+- Reusable UI: `Navbar`, `Footer`, `Card`, `Button`
+- Task Manager: add, complete, delete, filter (All/Active/Completed) with localStorage persistence
+- Posts page: curated Formula 1 timeline with search and pagination
+- Routing with React Router (`/`, `/tasks`, `/posts`)
+- Theme toggle (light: white/black, dark: black/white) using Tailwind dark mode
 
-You will:
-1. Set up a React project with Vite and Tailwind CSS
-2. Create reusable UI components
-3. Implement state management using React hooks
-4. Integrate with external APIs
-5. Style your application using Tailwind CSS
+## Tech Stack
+- React + Vite
+- Tailwind CSS (via CDN for simplicity)
+- React Router
 
 ## Getting Started
-
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Install dependencies:
-   ```
+1. Node 18+ required: `node -v`
+2. Install dependencies:
+   ```bash
    npm install
    ```
-4. Start the development server:
-   ```
+3. Start dev server:
+   ```bash
    npm run dev
    ```
+4. Open the printed URL (usually `http://localhost:5173`).
 
-## Files Included
-
-- `Week3-Assignment.md`: Detailed assignment instructions
-- Starter files for your React application:
-  - Basic project structure
-  - Pre-configured Tailwind CSS
-  - Sample component templates
-
-## Requirements
-
-- Node.js (v18 or higher)
-- npm or yarn
-- Modern web browser
-- Code editor (VS Code recommended)
+If you see a missing dependency error for PropTypes:
+```bash
+npm install prop-types
+```
 
 ## Project Structure
-
 ```
 src/
-├── components/       # Reusable UI components
-├── pages/           # Page components
-├── hooks/           # Custom React hooks
-├── context/         # React context providers
-├── api/             # API integration functions
-├── utils/           # Utility functions
-└── App.jsx          # Main application component
+  api/                # (kept for reference)
+  components/         # Button, Card, Navbar, Footer, Layout, TaskManager
+  context/            # ThemeContext (dark mode)
+  data/               # f1Posts.js (local dataset)
+  pages/              # Home, Tasks, Posts
+  App.jsx             # Router + Layout
+  main.jsx            # App bootstrap
+  index.css           # Tailwind import
 ```
 
-## Submission
+## Dark Mode
+- Dark mode is class-based and applied to `<html>`.
+- We set/restore the theme early in `index.html` and toggle it via `ThemeContext` and the navbar button.
+- Palette: light (white background, black text), dark (black background, white text) with neutral accents.
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+## Deployment (Vercel)
+1. Push this repo to GitHub.
+2. In Vercel: New Project → Import repo.
+3. Settings:
+   - Build command: `npm run build`
+   - Output directory: `dist`
+4. SPA routing (important for React Router). Add `vercel.json` at repo root:
+   ```json
+   {
+     "rewrites": [
+       { "source": "/(.*)", "destination": "/" }
+     ]
+   }
+   ```
+5. Redeploy and test `/`, `/tasks`, `/posts`.
 
-1. Complete all required components and features
-2. Implement proper state management with hooks
-3. Integrate with at least one external API
-4. Style your application with Tailwind CSS
-5. Deploy your application and add the URL to your README.md
+## Screenshots
+- Add screenshots of Home, Tasks, Posts, and Dark Mode here.
 
-## Resources
-
-- [React Documentation](https://react.dev/)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [Vite Documentation](https://vitejs.dev/guide/)
-- [React Router Documentation](https://reactrouter.com/) 
+## Notes
+- Tailwind is loaded via CDN in `index.html` for fast setup. If you prefer a local Tailwind build, we can switch by removing the CDN tag and keeping the `@import "tailwindcss";` in `src/index.css` with a Tailwind config.
